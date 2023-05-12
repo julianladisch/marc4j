@@ -497,8 +497,8 @@ public class MarcXmlWriter implements MarcWriter {
      */
     public static void writeSingleRecord(final Record record, final OutputStream stream, final boolean encode,
             final boolean indent) throws IOException {
-        try (MarcXmlWriter writer = new MarcXmlWriter();
-             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(stream, "UTF-8"))) {
+        try (BufferedWriter out = new BufferedWriter(new OutputStreamWriter(stream, "UTF-8"));
+            MarcXmlWriter writer = new MarcXmlWriter()) {
 
             if (encode) {
                 writer.setConverter(new AnselToUnicode());
