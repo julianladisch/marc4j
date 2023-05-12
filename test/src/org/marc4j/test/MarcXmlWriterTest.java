@@ -308,6 +308,8 @@ public class MarcXmlWriterTest extends XMLTestCase {
     }
 
     private void assertXMLEqual(ByteArrayOutputStream out, String s) throws SAXException, IOException {
+        System.out.println("out = " + new String(out.toByteArray(), StandardCharsets.UTF_8));
+        System.out.println("s = " + s);
         assertXMLEqual(new String(out.toByteArray(), StandardCharsets.UTF_8), s);
     }
 }
