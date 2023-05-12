@@ -519,6 +519,7 @@ public class MarcXmlWriter implements MarcWriter {
             writer.handler.endDocument();
 
             out.write("\n");
+            out.flush();
         } catch (final SAXException details) {
             throw new MarcException("SAX error occured while writing record", details);
         } catch (final UnsupportedEncodingException details) {
