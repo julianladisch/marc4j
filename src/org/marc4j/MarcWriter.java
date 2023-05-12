@@ -32,7 +32,7 @@ import org.marc4j.marc.Record;
  * 
  * @author Bas Peters
  */
-public interface MarcWriter {
+public interface MarcWriter extends AutoCloseable {
 
     /**
      * Writes a single <code>Record</code> to the output stream.

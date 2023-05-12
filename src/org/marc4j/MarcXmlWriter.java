@@ -497,9 +497,8 @@ public class MarcXmlWriter implements MarcWriter {
      */
     public static void writeSingleRecord(final Record record, final OutputStream stream, final boolean encode,
             final boolean indent) throws IOException {
-        try {
-            final BufferedWriter out = new BufferedWriter(new OutputStreamWriter(stream, "UTF-8"));
-            final MarcXmlWriter writer = new MarcXmlWriter();
+        try (BufferedWriter out = new BufferedWriter(new OutputStreamWriter(stream, "UTF-8"));
+             MarcXmlWriter writer = new MarcXmlWriter()) {
 
             if (encode) {
                 writer.setConverter(new AnselToUnicode());
@@ -520,7 +519,6 @@ public class MarcXmlWriter implements MarcWriter {
             writer.handler.endDocument();
 
             out.write("\n");
-            out.close();
         } catch (final SAXException details) {
             throw new MarcException("SAX error occured while writing record", details);
         } catch (final UnsupportedEncodingException details) {

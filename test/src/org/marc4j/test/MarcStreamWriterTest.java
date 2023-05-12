@@ -28,5 +28,14 @@ public class MarcStreamWriterTest {
         TestUtils.validateBytesAgainstFile(out.toByteArray(), StaticTestRecords.RESOURCES_SUMMERLAND_MRC);
     }
 
-
+    @Test
+    public void testAutoCloseable() throws Exception {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try (MarcStreamWriter writer = new MarcStreamWriter(out)) {
+            for (Record record : StaticTestRecords.summerland) {
+                writer.write(record);
+            }
+        }
+        TestUtils.validateBytesAgainstFile(out.toByteArray(), StaticTestRecords.RESOURCES_SUMMERLAND_MRC);
+    }
 }
