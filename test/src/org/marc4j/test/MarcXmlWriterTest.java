@@ -17,7 +17,7 @@ import org.marc4j.test.utils.TestUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
+import org.xml.sax.SAXException;
 import javax.xml.transform.dom.DOMResult;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -306,7 +306,7 @@ public class MarcXmlWriterTest extends XMLTestCase {
         testoutput.close();
     }
 
-    private void assertXMLEqual(ByteArrayOutputStream out, String s) {
+    private void assertXMLEqual(ByteArrayOutputStream out, String s) throws SAXException {
         assertXMLEqual(new String(out.toByteArray(), StandardCharsets.UTF_8), s);
     }
 }
