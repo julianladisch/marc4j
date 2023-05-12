@@ -24,6 +24,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class MarcXmlWriterTest extends XMLTestCase {
 
@@ -46,7 +47,7 @@ public class MarcXmlWriterTest extends XMLTestCase {
             writer.write(record);
         }
         writer.close();
-        assertXMLEqual(new String(out.toByteArray()), TestUtils.readFileIntoString(StaticTestRecords.RESOURCES_SUMMERLAND_XML));
+        assertXMLEqual(out, TestUtils.readFileIntoString(StaticTestRecords.RESOURCES_SUMMERLAND_XML));
     }
 
     /**
@@ -59,7 +60,7 @@ public class MarcXmlWriterTest extends XMLTestCase {
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
         MarcXmlWriter.writeSingleRecord(StaticTestRecords.summerland[0], out, true);
    //     assertXMLEqual(new String(out.toByteArray()), StaticTestRecords.RESOURCES_SUMMERLAND_XML);
-        assertXMLEqual(new String(out.toByteArray()), TestUtils.readFileIntoString("/summerland-record.xml"));
+        assertXMLEqual(out, TestUtils.readFileIntoString("/summerland-record.xml"));
     }
 
     /**
@@ -76,9 +77,8 @@ public class MarcXmlWriterTest extends XMLTestCase {
 
         MarcXmlWriter.writeSingleRecord(record, out, true);
 //        assertXMLEqual(new String(out.toByteArray()), StaticTestRecords.RESOURCES_SUMMERLAND_XML);
-        String result = new String(out.toByteArray());
         String expected = TestUtils.readFileIntoString("/summerland-record-with-type.xml");
-        assertXMLEqual(result, expected);
+        assertXMLEqual(out, expected);
     }
 
     /**
@@ -304,5 +304,9 @@ public class MarcXmlWriterTest extends XMLTestCase {
             }
         }
         testoutput.close();
+    }
+
+    private void assertXMLEqual(ByteArrayOutputStream out, String s) {
+        assertXMLEqual(new String(out.toByteArray(), StandardCharsets.UTF_8), s);
     }
 }
